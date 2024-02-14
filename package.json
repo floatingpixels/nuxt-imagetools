@@ -1,5 +1,5 @@
 {
-  "name": "Nuxt Imagetools",
+  "name": "nuxt-imagetools",
   "version": "0.0.1",
   "description": "Nuxt module for image manipulation and optimization.",
   "repository": "floatingpixels/nuxt-imagetools",

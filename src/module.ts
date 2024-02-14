@@ -1,4 +1,4 @@
-import { defineNuxtModule, createResolver, addComponent, extendViteConfig, addTypeTemplate } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addComponent, addTypeTemplate, addVitePlugin } from '@nuxt/kit'
 import { imagetools } from 'vite-imagetools'
 
 // Module options TypeScript interface definition
@@ -47,21 +47,19 @@ export default defineNuxtModule<ModuleOptions>({
       filePath: resolve('./runtime/components/image.vue'),
     })
 
-    extendViteConfig(config => {
-      config.plugins.push(
-        imagetools({
-          defaultDirectives: url => {
-            if (url.searchParams.size !== 1) return url.searchParams
-            return new URLSearchParams({
-              w: options.widths.join(';'),
-              format: options.formats.join(';'),
-              quality: options.quality.toString(),
-              as: 'picture',
-            })
-          },
-        }),
-      )
-    })
+    addVitePlugin(
+      imagetools({
+        defaultDirectives: url => {
+          if (url.searchParams.size !== 1) return url.searchParams
+          return new URLSearchParams({
+            w: options.widths.join(';'),
+            format: options.formats.join(';'),
+            quality: options.quality.toString(),
+            as: 'picture',
+          })
+        },
+      }),
+    )
 
     addTypeTemplate({
       filename: 'imagetools.d.ts',
