@@ -1,8 +1,8 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "Nuxt Imagetools",
+  "version": "0.0.1",
+  "description": "Nuxt module for image manipulation and optimization.",
+  "repository": "floatingpixels/nuxt-imagetools",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -22,10 +22,26 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run lint && npm run prepack && release-it",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "releaseName": "v${version}",
+      "preRelease": false,
+      "draft": false,
+      "tokenRef": "GITHUB_TOKEN"
+    },
+    "npm": {
+      "publish": true,
+      "publishArgs": [
+        "--access",
+        "public"
+      ]
+    }
   },
   "dependencies": {
     "@nuxt/kit": "^3.10.1"
@@ -42,6 +58,7 @@
     "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.10.1",
     "prettier": "^3.2.5",
+    "release-it": "^17.0.3",
     "vite-imagetools": "^6.2.9",
     "vitest": "^1.2.2"
   }
