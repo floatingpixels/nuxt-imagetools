@@ -1,6 +1,6 @@
 {
   "name": "nuxt-imagetools",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nuxt module for image manipulation and optimization.",
   "repository": "floatingpixels/nuxt-imagetools",
   "license": "MIT",
