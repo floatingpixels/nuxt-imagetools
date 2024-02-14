@@ -44,7 +44,8 @@
     }
   },
   "dependencies": {
-    "@nuxt/kit": "^3.10.1"
+    "@nuxt/kit": "^3.10.1",
+    "vite-imagetools": "^6.2.9"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -59,7 +60,6 @@
     "nuxt": "^3.10.1",
     "prettier": "^3.2.5",
     "release-it": "^17.0.3",
-    "vite-imagetools": "^6.2.9",
     "vitest": "^1.2.2"
   }
 }
