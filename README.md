@@ -45,7 +45,45 @@ import pic_1 from '~/assets/living_sr_crop.png?imagetools'
 
 The `sizes` attribute is used to specify the size of the image at different screen sizes. The browser will select the right image for the current screen size and resolution based on what you define here. The `picture` attribute is used to specify the image to be displayed. The `alt` attribute is used to specify the alternative text for the image.
 
-The above defaults are only trying to cover the most common use case. You can also customize the defaults, or generate different formats, sizes, aspect ratios and outputs and use them in whatever way you like.
+The defaults are only trying to cover the most common use case. You can also customize the defaults, or generate different formats, sizes, aspect ratios and outputs and use them in whatever way you like. This is how to change the module defaults in `nuxt.config.ts`:
+
+```ts [nuxt.config.ts]
+export default defineNuxtConfig({
+  // ...
+  imagetools: {
+    formats: ['avif', 'webp'],
+    quality: 85,
+    widths: [640, 768, 1024, 1280, 1600, 1920],
+  }
+}
+```
+
+#### `formats`
+
+Formats to generate
+
+- default: `['avif', 'webp']`
+- type: `string[]`
+
+See [vite-imagetools documentation](https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#format) for more information.
+
+#### `quality`
+
+Quality of the generated images (0-100)
+
+- default: `85`
+- type: `number`
+
+See [vite-imagetools documentation](https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#quality) for more information.
+
+#### `widths`
+
+Resizes the image to be the specified amount of pixels wide. If not given the height will be scaled accordingly.
+
+- default: `[640, 768, 1024, 1280, 1600, 1920]`
+- type: `number[]`
+
+See [vite-imagetools documentation](https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#width) for more information.
 
 ## Quick Setup
 
