@@ -10,21 +10,21 @@ export interface ModuleOptions {
    * @type ImageFormat[] - heic | heif | avif | jpeg | jpg | png | tiff | webp | gif
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#format
    */
-  formats?: ImageFormat[]
+  formats: ImageFormat[]
   /**
    * Quality of the generated images (0-100)
    * @default 85
    * @type number
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#quality
    */
-  quality?: number
+  quality: number
   /**
    * Resizes the image to be the specified amount of pixels wide. If not given the height will be scaled accordingly.
    * @default [640, 768, 1024, 1280, 1600, 1920]
    * @type number[]
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#width
    */
-  widths?: number[]
+  widths: number[]
   /**
    * Prefetch all images - setting to false prevents media to be included in the header as prefetch. If set to true Chrome loads ALL assets, including all renditions of assets that are not used, which is NOT what you want under normal circumstances.
    * @default false
