@@ -93,12 +93,7 @@ declare module '*imagetools' {
 
           if (file.assets) {
             file.assets = file.assets.filter(
-              (asset: string) =>
-                !asset.endsWith('.mp4') &&
-                !asset.endsWith('.avif') &&
-                !asset.endsWith('.webp') &&
-                !asset.endsWith('.jpg') &&
-                !asset.endsWith('.png'),
+              assetName => !/.+\.(gif|jpe?g|png|svg|mp4|avif|webp|gvheic|heif|tiff)$/.test(assetName),
             )
           }
         }
