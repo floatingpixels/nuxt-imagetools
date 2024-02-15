@@ -57,7 +57,7 @@ To get started quickly, a sensible default configuration is provided. It generat
 ```vue
 <script setup lang="ts">
 // simply import your images and add ?imagetools to the end of the path
-import pic_1 from '~/assets/living_sr_crop.png?imagetools'
+import pic_1 from '~/assets/high_quality_image.png?imagetools'
 </script>
 <template>
   <div>
@@ -113,6 +113,15 @@ Resizes the image to be the specified amount of pixels wide. If not given the he
 - type: `number[]`
 
 See [vite-imagetools documentation](https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#width) for more information.
+
+#### `prefetch`
+
+Prefetch all images - setting to false prevents media to be included in the header as prefetch. If set to true Chrome loads ALL assets, including all renditions of assets that are not used, which is NOT what you want under normal circumstances.
+
+- default: `false`
+- type: `boolean`
+
+See [this Nuxt issue](https://github.com/nuxt/nuxt/issues/18376#issuecomment-1544311945) for details.
 
 <!-- Badges -->
 

@@ -10,21 +10,28 @@ export interface ModuleOptions {
    * @type ImageFormat[] - heic | heif | avif | jpeg | jpg | png | tiff | webp | gif
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#format
    */
-  formats: ImageFormat[]
+  formats?: ImageFormat[]
   /**
    * Quality of the generated images (0-100)
    * @default 85
    * @type number
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#quality
    */
-  quality: number
+  quality?: number
   /**
    * Resizes the image to be the specified amount of pixels wide. If not given the height will be scaled accordingly.
    * @default [640, 768, 1024, 1280, 1600, 1920]
    * @type number[]
    * @docs https://github.com/JonasKruckenberg/imagetools/blob/main/docs/directives.md#width
    */
-  widths: number[]
+  widths?: number[]
+  /**
+   * Prefetch all images - setting to false prevents media to be included in the header as prefetch. If set to true Chrome loads ALL assets, including all renditions of assets that are not used, which is NOT what you want under normal circumstances.
+   * @default false
+   * @type boolean
+   * @docs https://github.com/nuxt/nuxt/issues/18376#issuecomment-1544311945
+   */
+  prefetch?: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -37,8 +44,9 @@ export default defineNuxtModule<ModuleOptions>({
     widths: [640, 768, 1024, 1280, 1600, 1920],
     formats: ['avif', 'webp'],
     quality: 85,
+    prefetch: false,
   },
-  setup(options) {
+  setup(options, nuxt) {
     // @ts-ignore
     const { resolve } = createResolver(import.meta.url)
 
@@ -75,5 +83,26 @@ declare module '*imagetools' {
 }
     `,
     })
+
+    if (!options.prefetch) {
+      // prevent media to be included in the header as prefetch, which causes Chrome to load all asssets
+      // https://github.com/nuxt/nuxt/issues/18376#issuecomment-1544311945
+      nuxt.hook('build:manifest', manifest => {
+        for (const key in manifest) {
+          const file = manifest[key]
+
+          if (file.assets) {
+            file.assets = file.assets.filter(
+              (asset: string) =>
+                !asset.endsWith('.mp4') &&
+                !asset.endsWith('.avif') &&
+                !asset.endsWith('.webp') &&
+                !asset.endsWith('.jpg') &&
+                !asset.endsWith('.png'),
+            )
+          }
+        }
+      })
+    }
   },
 })
