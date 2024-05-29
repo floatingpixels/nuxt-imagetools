@@ -17,6 +17,7 @@
           buildInputs = with pkgs; [
             nodejs_22 # Node.js
             nodePackages.pnpm # PNPM package manager
+            nodePackages."@antfu/ni"
             typescript # TypeScript
           ];
         };
