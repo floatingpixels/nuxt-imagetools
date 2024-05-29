@@ -26,6 +26,7 @@ dist
 
 # Env
 .env
+.direnv
 
 # Testing
 reports
