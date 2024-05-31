@@ -25,6 +25,7 @@
     "release": "npm run lint && npm run prepack && release-it",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:debug": "vitest run --inspect-brk --pool threads --poolOptions.threads.singleThread",
     "test:watch": "vitest watch"
   },
   "release-it": {
