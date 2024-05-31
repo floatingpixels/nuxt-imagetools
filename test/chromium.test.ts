@@ -15,11 +15,9 @@ describe('imagetools', async () => {
     },
   })
 
-  let page = await createPage()
-
   it('creates the right sourcemaps for the default settings', async () => {
     // Check if the image's picture element contains the expected source tags
-    await page.goto(url('/default_100vw'))
+    const page = await createPage(url('/default_100vw'))
     const picSources = await page.$$eval('picture:nth-child(1) source', sources =>
       sources.map(source => ({
         type: source.getAttribute('type'),
@@ -102,19 +100,17 @@ describe('imagetools', async () => {
   })
 
   it('sets the image width to 100% of the viewport width', async () => {
-    await page.goto(url('/default_100vw'))
-
+    const page = await createPage(url('/default_100vw'))
     const viewportWidth = await page.evaluate(() => window.innerWidth)
     const pictureWidth = await page.evaluate(() => document.querySelector('picture')?.getBoundingClientRect().width)
     expect(pictureWidth).greaterThan(0)
     expect(pictureWidth).toBe(viewportWidth)
   })
 
-  it('changes image on resize', async () => {
-    // Navigate to the page
-    await page.goto(url('/default_100vw'))
+  it('loads respective image for viewport sizes', async () => {
+    const page = await createPage(url('/default_100vw'))
 
-    // get the srcset attribute and parse it to with and url
+    // get the srcset attribute and parse it to width and url
     const srcset = await page.$eval('picture:nth-child(1) source', source => source.getAttribute('srcset'))
     expect(srcset).not.toBeNull()
 
@@ -125,16 +121,14 @@ describe('imagetools', async () => {
     sources = sources.filter(src => src.url.includes('.avif'))
     expect(sources.length).toBe(6)
 
-    const devicePixelRatio = 2 //await page.evaluate(() => window.devicePixelRatio)
+    for (const { width, url: src_url } of sources) {
+      const page = await createPage(url('/default_100vw'), {
+        viewport: { width, height: 720 },
+      })
+      // await page.setViewportSize({ width, height: 720 })
 
-    for (const { width, url } of sources) {
-      const adjustedWidth = Math.round(width / devicePixelRatio)
-
-      await page.setViewportSize({ width: adjustedWidth, height: 1600 })
-      // await page.waitForTimeout(5000)
-
-      await page.waitForSelector('picture:nth-child(1) img')
       // Wait for the image to load
+      await page.waitForSelector('picture:nth-child(1) img')
       await page.waitForFunction(() => {
         const img = document.querySelector('picture:nth-child(1) img') as HTMLImageElement
         return img && img.complete && img.currentSrc
@@ -146,7 +140,7 @@ describe('imagetools', async () => {
       })
 
       // Normalize URLs to absolute URLs
-      const absoluteUrl = new URL(url, page.url()).href
+      const absoluteUrl = new URL(src_url, page.url()).href
 
       // Check if current src is not null and contains the expected source
       expect(currentSrc).not.toBeNull()
