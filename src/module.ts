@@ -47,7 +47,6 @@ export default defineNuxtModule<ModuleOptions>({
     prefetch: false,
   },
   setup(options, nuxt) {
-    // @ts-ignore
     const { resolve } = createResolver(import.meta.url)
 
     addComponent({
