@@ -25,6 +25,8 @@ This module is a wrapper around [sharp](https://sharp.pixelplumbing.com/) and [i
 Optimizing your images by hand is a tedious and error-prone process: Opening the image in Photoshop, naming and exporting each image individually, and then reference everything correctly in the HTML.
 This is where imagetools comes to the rescue: simply reference your image in code, specify the needed transformations and imagetools will take care of the rest! All this happens during build-time, so your users will only download the optimized images.
 
+This module optimizes images offline during built-time, providing an alternative to [Nuxt Image](https://image.nuxt.com) and other modules, which mainly rely on CDNs and online optimization.
+
 ## Quick Setup
 
 1. Add `nuxt-imagetools` to your project
@@ -64,7 +66,7 @@ import pic_1 from '~/assets/high_quality_image.png?imagetools'
     <Image
       :picture="pic_1"
       alt="Picture One"
-      sizes="(min-width: 1280px) 30vw, (min-width: 1024px) 50vw, (min-width: 640px) 100vw, 100vw"
+      sizes="(min-width: 1280px) 50vw, 100vw"
     />
   </div>
 </template>
@@ -74,7 +76,7 @@ The `sizes` attribute is used to specify the size of the image at different scre
 
 ### Configuration
 
-The defaults are only trying to cover the most common use case. You can also customize the defaults, or generate different formats, sizes, aspect ratios and outputs and use them in whatever way you like. This is how to change the module defaults in `nuxt.config.ts`:
+The defaults are trying to cover the most common use case. You can also customize the defaults, or generate different formats, sizes, aspect ratios and outputs and use them in whatever way you like. This is how to change the module defaults in `nuxt.config.ts`:
 
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
