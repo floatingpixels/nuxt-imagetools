@@ -2,12 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { fileURLToPath } from 'node:url'
 import { setup, createPage, url } from '@nuxt/test-utils/e2e'
 
-describe('imagetools on chromium', async () => {
+describe('imagetools on webkit', async () => {
   await setup({
     rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
     browser: true,
     browserOptions: {
-      type: 'chromium',
+      type: 'webkit',
       launch: {
         headless: true,
         args: ['--no-sandbox'],
