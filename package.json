@@ -54,13 +54,13 @@
     "@nuxt/module-builder": "^0.7.0",
     "@nuxt/schema": "^3.11.2",
     "@nuxt/test-utils": "^3.13.1",
-    "@types/node": "^20.12.13",
+    "@types/node": "^20.14.0",
     "changelogen": "^0.5.5",
-    "eslint": "^9.3.0",
+    "eslint": "^9.4.0",
     "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.11.2",
     "playwright-core": "^1.44.1",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "release-it": "^17.3.0",
     "vitest": "^1.6.0"
   }
